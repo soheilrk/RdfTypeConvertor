@@ -18,7 +18,6 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 
-import inOutFile.writeInFile;
 import conRdf.Instance;
 import conRdf.Partition;
 
