@@ -25,13 +25,16 @@ public class main {
 	public static Partition partition=new Partition();
     public static void main(String[] args) throws IOException {
 FileExits();
+System.out.println(partition.listObjets.get(0).instanceIds);
 createRdfN4("./EnumeratedData.txt");
 createTypesFile("./types.txt");
 createTypeIds("./Ids.txt");
+createIdUri("./Idsuris.txt");
 System.out.println(partition.listObjets);
 System.out.println("Done!");
-
+//"C:\Users\rosha\OneDrive\Documents\db\dc-2010-complete"
 //"C:\Users\rosha\OneDrive\Documents\db\es.ttl"
+//"C:\Users\rosha\OneDrive\Documents\db\rdfTriple.txt"
 }
     
     
@@ -40,7 +43,7 @@ System.out.println("Done!");
 public static void readDataSet(String N3DataSet) throws IOException {
 	
 	int id =0 ;
-	int maxId = 0;
+	int maxId = -1;
 	int typeId = 0;
 	ArrayList<Instance> instances = new ArrayList<Instance>();
 	ArrayList<ConceptType> listTypes = new ArrayList<ConceptType>();
@@ -72,7 +75,7 @@ public static void readDataSet(String N3DataSet) throws IOException {
 			typeIndex = listTypes.indexOf(newType);
 			
 		}
-		
+
 		id = 0;
 		int index = -1;
 		for(Instance tempInstance : instances)
@@ -80,15 +83,16 @@ public static void readDataSet(String N3DataSet) throws IOException {
 			if (tempInstance.instanceNames.trim().contains(s[0].trim()))
 			{
 				id = tempInstance.instanceIds;
-				
 				index = instances.indexOf(tempInstance);
 
 				break;
 			}
 		}
 		
+
 		if (id>0)
-		{
+		{				
+
 		Instance tempInstance = instances.get(index);
 		
 		tempInstance.typeNames.add(s[2]);
@@ -96,10 +100,12 @@ public static void readDataSet(String N3DataSet) throws IOException {
 		instances.set(index, tempInstance);
 		}
 		else if (id ==0 ) 
-		{
+		{	
+
 			id = ++maxId;
-			
 			instances.add(new Instance(id, s[0], s[2]));
+
+
 		}
 		
 	    ConceptType tempType = listTypes.get(typeIndex);
@@ -148,32 +154,32 @@ public static void createRdfN4(String path) throws IOException {
 	   
 	   }
 
-//public static void createIdUri(String path) throws IOException {
-//    
-//    
-//	  FileWriter fw = new FileWriter(path, true);
-//	    try (BufferedWriter output = new BufferedWriter(fw)) {
-//	    		    	
-//
-//	    	
-//	    	
-//	    	String ligne = "";
-//	    	       
-//	    	for(Instance instance : partition.listObjets)
-//	    	{
-//		    		int i = partition.listObjets.indexOf(instance);
-//		    		ligne =  (i>0?"\n":"")+ instance.instanceIds+" "+instance.instanceNames;
-//		            output.write(ligne, 0, ligne.length());
-//
-//	    		
-//	    	}
-//	          
-//	        output.flush();
-//	    }
-//	       
-//	   
-//	   
-//	   }
+public static void createIdUri(String path) throws IOException {
+    
+    
+	  FileWriter fw = new FileWriter(path, true);
+	    try (BufferedWriter output = new BufferedWriter(fw)) {
+	    		    	
+
+	    	
+	    	
+	    	String ligne = "";
+	    	       
+	    	for(Instance instance : partition.listObjets)
+	    	{
+		    		int i = partition.listObjets.indexOf(instance);
+		    		ligne =  (i>0?"\n":"")+ instance.instanceIds+" "+instance.instanceNames;
+		            output.write(ligne, 0, ligne.length());
+
+	    		
+	    	}
+	          
+	        output.flush();
+	    }
+	       
+	   
+	   
+	   }
 
 
 //The Name of the Types exist in our Dataset. and Write them in Types.txt
