@@ -32,9 +32,7 @@ createTypeIds("./Ids.txt");
 createIdUri("./Idsuris.txt");
 System.out.println(partition.listObjets);
 System.out.println("Done!");
-//"C:\Users\rosha\OneDrive\Documents\db\dc-2010-complete"
-//"C:\Users\rosha\OneDrive\Documents\db\es.ttl"
-//"C:\Users\rosha\OneDrive\Documents\db\rdfTriple.txt"
+
 }
     
     
@@ -76,7 +74,7 @@ public static void readDataSet(String N3DataSet) throws IOException {
 			
 		}
 
-		id = 0;
+		id = -1;
 		int index = -1;
 		for(Instance tempInstance : instances)
 		{
@@ -90,7 +88,7 @@ public static void readDataSet(String N3DataSet) throws IOException {
 		}
 		
 
-		if (id>0)
+		if (id>=0)
 		{				
 
 		Instance tempInstance = instances.get(index);
@@ -99,7 +97,7 @@ public static void readDataSet(String N3DataSet) throws IOException {
 		
 		instances.set(index, tempInstance);
 		}
-		else if (id ==0 ) 
+		else if (id ==-1 ) 
 		{	
 
 			id = ++maxId;
@@ -259,9 +257,13 @@ public static void FileExits() throws IOException {
 	String fileToDeleteEnumeratedData = "./EnumeratedData.txt";
 	String fileToDeletetypes = "./types.txt";
 	String fileToDeleteIds = "./Ids.txt";
+	String fileToDeleteIdsuris = "./Idsuris.txt";
+
 	File fileEnumeratedData=new File(fileToDeleteEnumeratedData);
 	File filetypes=new File(fileToDeletetypes);
 	File fileIds=new File(fileToDeleteIds);
+	File fileIdsuris=new File(fileToDeleteIdsuris);
+
 	if (fileEnumeratedData.exists()){
    fileEnumeratedData.delete();}
 	
@@ -270,6 +272,10 @@ public static void FileExits() throws IOException {
 	
 	if (fileIds.exists()){
 		fileIds.delete();}
+	
+	if (fileIdsuris.exists()){
+		fileIdsuris.delete();}
+	
 	
 	//Reading the N3 Dataset Path
 	    		 BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
