@@ -13,7 +13,7 @@ public class Partition {
       
       public ArrayList<ConceptType> listTypes;
        
-       
+       public ArrayList<Property> listProperties;
     
     
     

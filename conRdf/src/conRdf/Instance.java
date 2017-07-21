@@ -20,17 +20,21 @@ public class Instance implements Serializable {
     public String  instanceNames;
 //    public String rdfTypes ;
     public ArrayList<String> typeNames;
+    public ArrayList<String> propertyNames;
    // public ArrayList<AbstractMap.SimpleEntry<String, String>> typeValues;
+    //arralist list properties. 
     
-    
-    public  Instance(int instanceIds, String instanceNames, String typeNames) {
+    public  Instance(int instanceIds, String instanceNames, String typeNames, String propertyName) {
     	this.instanceIds=instanceIds;
     	this.instanceNames=instanceNames;
     	//this.typeValues = new ArrayList<AbstractMap.SimpleEntry<String, String>>();
     	//this.typeValues.add(new AbstractMap.SimpleEntry<String, String>(rdfTypes, typeNames));
     	//this.rdfTypes=rdfTypes;
+    	
     	this.typeNames = new ArrayList<String>();
-    	this.typeNames.add(typeNames);
+    	this.propertyNames = new ArrayList<String>();
+    	if (typeNames != "") this.typeNames.add(typeNames);
+    	if (propertyName != "") this.propertyNames.add(propertyName);
     	//this.typeNames=typeNames;
 		
 	}
