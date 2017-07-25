@@ -25,18 +25,18 @@ public class main {
 	public static Partition partition=new Partition();
     public static void main(String[] args) throws IOException {
 FileExits();
-System.out.println(partition.listObjets.get(0).instanceIds);
-createRdfN4("./EnumeratedData.txt");
-createTypesFile("./types.txt");
-createTypeIds("./Ids.txt");
-createIdUri("./Idsuris.txt");
+//System.out.println(partition.listObjets.get(0).instanceIds);
+//createRdfN4("./EnumeratedData.txt");
+//createTypesFile("./types.txt");
+//createTypeIds("./Ids.txt");
+//createIdUri("./Idsuris.txt");
 createPropertyFile("./PropertyNames_NumberOfTypes.txt");
-createPropertiesPerInstance("./PropertyPerInstance.txt");
-System.out.println(partition.listObjets);
+//createPropertiesPerInstance("./PropertyPerInstance.txt");
+//System.out.println(partition.listObjets);
 System.out.println("Done!");
 //"C:\Users\rosha\OneDrive\Documents\db\dc-2010-complete"
 //"C:\Users\rosha\OneDrive\Documents\db\largeDbKenza"
-//"C:\Users\rosha\OneDrive\Documents\db\rdfTriple.txt"
+//"C:\Users\rosha\OneDrive\Documents\db\museum""
 }
     
     
@@ -48,6 +48,8 @@ public static void readDataSet(String N3DataSet) throws IOException {
 	int maxId = -1;
 	int typeId = 0;
 	int propertyId = 0;
+	int countLines = 0;
+	int countTypes=0;
 	ArrayList<Instance> instances = new ArrayList<Instance>();
 	ArrayList<ConceptType> listTypes = new ArrayList<ConceptType>();
 	ArrayList<Property> listProperties = new ArrayList<Property>();
@@ -75,13 +77,14 @@ public static void readDataSet(String N3DataSet) throws IOException {
 		boolean isType = s[1].contains("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>");
 		
 		//if (!s[1].contains("<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>")) continue;
-		
+
 		int typeIndex = -1;
 		int propIndex = -1;
 
 		if (isType)
 		{
-			
+			countTypes++;
+
 			for (ConceptType type : listTypes)
 			{
 				if (type.typeName.trim().contains(s[2].trim()))
@@ -169,6 +172,9 @@ public static void readDataSet(String N3DataSet) throws IOException {
 		    listTypes.set(typeIndex, tempType);
 		}
 		
+		//the triple is parsed
+		++countLines;
+
 	}
 	
 	int propIndex = -1;
@@ -186,12 +192,15 @@ public static void readDataSet(String N3DataSet) throws IOException {
 			}
 		}
 	}
+	//create the loop to clear the list that consume memory 
 	
 	partition.listObjets = instances;
 	
 	partition.listTypes = listTypes;
 	
 	partition.listProperties = listProperties;
+	System.out.println(countLines);
+	System.out.println(countTypes);
 }
     
 
@@ -325,16 +334,16 @@ public static void createPropertyFile(String propertyFile) throws IOException {
 	    	for(Property getPropertyName : partition.listProperties)
 	    	{
 		    		int i = partition.listProperties.indexOf(getPropertyName);
-		    		ligne =  (i>0?"\n":"")+ getPropertyName.propertyName +" "+ getPropertyName.noOfTypes;
+		    		ligne =  (i>0?"\n":"")+ getPropertyName.propertyName +" "+ getPropertyName.noOfTypes+" "+getPropertyName.occurances;
 		            output.write(ligne, 0, ligne.length());
 
-	    		
-	    	}
-	          
+	    		    	
+	    	 }
 	        output.flush();
 	    }
 	       
- 
+        
+
 	   
  }
 
@@ -358,7 +367,7 @@ public static void createPropertiesPerInstance(String path) throws IOException {
 
 	    		
 	    	}
-	          
+	    	
 	        output.flush();
 	    }
 	       
