@@ -32,7 +32,7 @@ public class main {
     	int index = args[0].lastIndexOf("\\");
 		String fileName = args[0].substring(index + 1);
 		String path = System.getProperty("user.dir");
-createTypeIds(path+"/"+fileName+"_Ids.txt");
+createTypeIds(path+"/"+fileName+"_Ids.cnl");
 //createIdUri("./Idsuris.txt");
 //createPropertyFile("./PropertyNames_NumberOfTypes.txt");
 //createPropertiesPerInstance("./PropertyPerInstance.txt");
