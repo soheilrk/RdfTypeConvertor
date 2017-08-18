@@ -24,13 +24,17 @@ import conRdf.Partition;
 public class main {
 	public static Partition partition=new Partition();
     public static void main(String[] args) throws IOException {
-FileExits();
+    	readDataSet(args[0]);
+//FileExits();
 //System.out.println(partition.listObjets.get(0).instanceIds);
 //createRdfN4("./EnumeratedData.txt");
 //createTypesFile("./types.txt");
-//createTypeIds("./Ids.txt");
+    	int index = args[0].lastIndexOf("\\");
+		String fileName = args[0].substring(index + 1);
+		String path = System.getProperty("user.dir");
+createTypeIds(path+"/"+fileName+"_Ids.txt");
 //createIdUri("./Idsuris.txt");
-createPropertyFile("./PropertyNames_NumberOfTypes.txt");
+//createPropertyFile("./PropertyNames_NumberOfTypes.txt");
 //createPropertiesPerInstance("./PropertyPerInstance.txt");
 //System.out.println(partition.listObjets);
 System.out.println("Done!");
@@ -38,7 +42,7 @@ System.out.println("Done!");
 //"C:\Users\rosha\OneDrive\Documents\db\largeDbKenza"
 //"C:\Users\rosha\OneDrive\Documents\db\museum""
 }
-    
+    //"C:\Users\rosha\workspace\SDtypeResultsUnifier\newRdf.txt"
     
     //Read the N3Dataset file, then filter all the triples if the have <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> or not
     //afterwards It saves all the Instances in partition.Objects and all the types in listTypes
@@ -199,8 +203,8 @@ public static void readDataSet(String N3DataSet) throws IOException {
 	partition.listTypes = listTypes;
 	
 	partition.listProperties = listProperties;
-	System.out.println(countLines);
-	System.out.println(countTypes);
+	//System.out.println(countLines);
+	//System.out.println(countTypes);
 }
     
 
